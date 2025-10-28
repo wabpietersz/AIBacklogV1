@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.env
+venv/
+duplicate_analysis_report_*.md
+duplicate_analysis_results_*.json
+jira_tokens.json

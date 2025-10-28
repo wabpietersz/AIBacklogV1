@@ -1,0 +1,39 @@
+{
+  "name": "idx-jira-issues",
+  "fields": [
+    { "name": "id", "type": "Edm.String", "key": true },
+    { "name": "key", "type": "Edm.String", "searchable": true, "filterable": true, "sortable": true, "facetable": true },
+    { "name": "project", "type": "Edm.String", "searchable": true, "filterable": true, "sortable": true, "facetable": true },
+    { "name": "status", "type": "Edm.String", "searchable": true, "filterable": true, "sortable": true, "facetable": true },
+    { "name": "issuetype", "type": "Edm.String", "searchable": true, "filterable": true, "sortable": true, "facetable": true },
+    { "name": "priority", "type": "Edm.String", "searchable": true, "filterable": true, "sortable": true },
+    { "name": "summary", "type": "Edm.String", "searchable": true },
+    { "name": "description", "type": "Edm.String", "searchable": true },
+    { "name": "labels", "type": "Collection(Edm.String)", "searchable": true, "filterable": true, "facetable": true },
+    { "name": "components", "type": "Collection(Edm.String)", "searchable": true, "filterable": true, "facetable": true },
+    { "name": "created", "type": "Edm.DateTimeOffset", "filterable": true, "sortable": true },
+    { "name": "updated", "type": "Edm.DateTimeOffset", "filterable": true, "sortable": true },
+    { "name": "text_for_embedding", "type": "Edm.String", "searchable": true },
+    {
+      "name": "text_vector",
+      "type": "Collection(Edm.Single)",
+      "searchable": true,
+      "vectorSearchDimensions": 3072,
+      "vectorSearchProfile": "vdb"
+    },
+    { "name": "web_url", "type": "Edm.String" }
+  ],
+  "semantic": {
+    "configurations": [{
+      "name": "sem1",
+      "prioritizedFields": {
+        "titleField": { "fieldName": "summary" },
+        "contentFields": [{ "fieldName": "description" }, { "fieldName": "text_for_embedding" }]
+      }
+    }]
+  },
+  "vectorSearch": {
+    "algorithms": [{ "name": "hnsw", "kind": "hnsw" }],
+    "profiles": [{ "name": "vdb", "algorithm": "hnsw" }]
+  }
+}
